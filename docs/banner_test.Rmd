@@ -1,10 +1,6 @@
 ---
 output:
-  pdf_document:
-    includes:
-      in_header: header.tex
-    keep_tex: true
-    latex_engine: xelatex
+  pdf_document
 ---
 
 ```{r setup, include=FALSE}

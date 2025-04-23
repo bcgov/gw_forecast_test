@@ -25,15 +25,11 @@ jobs:
         with:
           packages: |
             any::rmarkdown
-            any::tinytex
             any::aws.s3
             
       - name: Check out repository
         uses: actions/checkout@v3
-        
-      - name: Install tinytex
-        run: Rscript -e 'tinytex::install_tinytex()'
-         
+
       - name: Render RMarkdown
         run: |
           rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
