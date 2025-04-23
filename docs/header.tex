@@ -1,0 +1,34 @@
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{eso-pic}
+
+\usepackage{fontspec}  % Allows font customization with xelatex
+\setmainfont{Arial}    % Set the main document font to Arial
+
+% Set page margins smaller so the header stands out more
+\geometry{top=1in, bottom=0.5in, left=0.5in, right=0.5in}
+
+\definecolor{myblue}{RGB}{35, 64, 117}
+\definecolor{myyellow}{RGB}{227, 168, 43}
+
+% Add banner at the top of every page
+\AddToShipoutPictureBG*{%
+  \begin{tikzpicture}[remember picture,overlay]
+  % Blue banner
+  \fill[myblue] (current page.north west) rectangle ([yshift=-1.5cm]current page.north east);
+  
+  % Yellow line
+  \fill[myyellow] ([yshift=-1.5cm]current page.north west) rectangle ([yshift=-1.6cm]current page.north east);
+  
+  % Logo (top left)
+  \node[anchor=north west, xshift=20cm, yshift=-0.2cm] at (current page.north west) {\includegraphics[height=1cm]{a00_img_bcmark.png}};
+  
+  % Text in banner (centered)
+    \node[anchor=north, text=white, font=\bfseries\Large] at ([yshift=-0.2cm, xshift=-7cm]current page.north) {Groundwater Level Forecast};
+    \node[anchor=north, text=white, font=\itshape\small] at ([yshift=-0.9cm, xshift=-5cm]current page.north) {Used to estimate possible range of groundwater levels against historical levels};
+  \end{tikzpicture}
+}
+
+\pagestyle{empty}  % removes page numbers
