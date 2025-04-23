@@ -10,10 +10,10 @@ jobs:
 
 steps:
   - name: Checkout code
-uses: actions/checkout@v3
+  uses: actions/checkout@v3
 
 - name: Set up R
-uses: r-lib/actions/setup-r@v2
+  uses: r-lib/actions/setup-r@v2
 
 - name: Install system dependencies for TinyTeX
   run: |
@@ -21,14 +21,14 @@ uses: r-lib/actions/setup-r@v2
     sudo apt-get install -y libglpk-dev
 
 - name: Install packages
-run: |
+  run: |
   install.packages(c("rmarkdown", "tinytex", "aws.s3"))
   tinytex::install_tinytex()
 
 - name: Render RMarkdown
-run: |
+  run: |
   rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
-shell: Rscript {0}
+  shell: Rscript {0}
 
 - name: Upload to Object Storage
 env:
