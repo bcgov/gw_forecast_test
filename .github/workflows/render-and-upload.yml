@@ -22,12 +22,12 @@ steps:
 
 - name: Install packages
   run: |
-  install.packages(c("rmarkdown", "tinytex", "aws.s3"))
-  tinytex::install_tinytex()
+    install.packages(c("rmarkdown", "tinytex", "aws.s3"))
+    tinytex::install_tinytex()
 
 - name: Render RMarkdown
   run: |
-  rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
+    rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
   shell: Rscript {0}
 
 - name: Upload to Object Storage
