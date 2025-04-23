@@ -8,31 +8,31 @@ jobs:
   render:
     runs-on: ubuntu-latest
 
-steps:
-- name: Checkout code
-  uses: actions/checkout@v3
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-- name: Set up R
-  uses: r-lib/actions/setup-r@v2
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
 
-- name: Install system dependencies for TinyTeX
-  run: |
-    sudo apt-get update
-    sudo apt-get install -y libglpk-dev
+      - name: Install system dependencies for TinyTeX
+        run: |
+         sudo apt-get update
+         sudo apt-get install -y libglpk-dev
 
-- name: Install packages
-  run: |
-    install.packages(c("rmarkdown", "tinytex", "aws.s3"))
-    tinytex::install_tinytex()
+      - name: Install packages
+        run: |
+          install.packages(c("rmarkdown", "tinytex", "aws.s3"))
+         tinytex::install_tinytex()
 
-- name: Render RMarkdown
-  run: |
-    rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
-  shell: Rscript {0}
+      - name: Render RMarkdown
+       run: |
+         rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
+        shell: Rscript {0}
 
-- name: Upload to Object Storage
-  env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  run: |
-    Rscript -e "aws.s3::put_object(file = 'docs/banner_test.pdf', object = 'banner_test.pdf', bucket = 'rfc-conditions/gw_forecasting', region = "", acl = "public-read")"
+      - name: Upload to Object Storage
+        env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+       run: |
+          Rscript -e "aws.s3::put_object(file = 'docs/banner_test.pdf', object = 'banner_test.pdf', bucket = 'rfc-conditions/gw_forecasting', region = "", acl = "public-read")"
