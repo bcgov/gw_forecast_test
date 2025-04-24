@@ -7,8 +7,18 @@
 % \usepackage{fontspec}  % Allows font customization with xelatex
 % \setmainfont{Arial}    % Set the main document font to Arial
 
+% \usepackage{fontspec}
+% \setmainfont{Liberation Sans}
+
 \usepackage{fontspec}
-\setmainfont{Liberation Sans}
+\setmainfont{BCSans-Regular_2f.otf}[
+  Path = ./fonts/,
+  BoldFont = BCSans-Bold_2f.otf,
+  ItalicFont = BCSans-Italic_2f.otf,
+  BoldItalicFont = BCSans-BoldItalic_2f.otf
+  LightItalicFont = BCSans-LightItalic_2f.otf
+  LightFont = BCSans-Light_2f.otf
+]
 
 % Set page margins smaller so the header stands out more
 \geometry{top=1in, bottom=0.5in, left=0.5in, right=0.5in}
