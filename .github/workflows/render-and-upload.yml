@@ -20,6 +20,7 @@ jobs:
         run: |
          sudo apt-get update
          sudo apt-get install -y libglpk-dev
+         sudo apt-get install -y fonts-liberation
          
       - name: Install packages
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -35,8 +36,8 @@ jobs:
       - name: Install tinytex
         run: Rscript -e 'tinytex::install_tinytex()'
         
-      - name: Install tinytex fonts
-        run: Rscript -e 'tinytex::tlmgr_install("tex-gyre")'
+     # - name: Install tinytex fonts
+     #   run: Rscript -e 'tinytex::tlmgr_install("tex-gyre")'
          
       - name: Render RMarkdown
         run: |
