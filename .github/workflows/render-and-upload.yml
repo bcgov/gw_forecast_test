@@ -36,9 +36,6 @@ jobs:
       - name: Install tinytex
         run: Rscript -e 'tinytex::install_tinytex()'
         
-     # - name: Install tinytex fonts
-     #   run: Rscript -e 'tinytex::tlmgr_install("tex-gyre")'
-         
       - name: Render RMarkdown
         run: |
           rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
