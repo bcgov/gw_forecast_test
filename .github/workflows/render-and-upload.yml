@@ -40,7 +40,7 @@ jobs:
         # run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
         
       - name: Render RMarkdown
-        run: Rscript -e 'source(01_ConfigInputs.R)'
+        run: Rscript -e '01_ConfigInputs.R'
 
         
       # - name: Upload to Object Storage
