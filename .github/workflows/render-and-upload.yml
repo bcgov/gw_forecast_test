@@ -7,7 +7,7 @@ on:
 jobs:
   render:
     runs-on: ubuntu-latest
-    environment: objectstore #name of the Github environment where the secrets are stored
+    environment: objectstore #name of the Github environment where the secrets are stored 
 
     steps:
       - name: Checkout code
