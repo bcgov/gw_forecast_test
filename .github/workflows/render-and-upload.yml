@@ -33,18 +33,21 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
         
-      - name: Install tinytex
-        run: Rscript -e 'tinytex::install_tinytex()'
+      # - name: Install tinytex
+      #   run: Rscript -e 'tinytex::install_tinytex()'
+        
+      # - name: Install tinytex
+        # run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
         
       - name: Render RMarkdown
         run: |
-          rmarkdown::render('docs/banner_test.Rmd', output_format = "pdf_document")
+          Rscript -e "source(01_ConfigInputs.R)"
         shell: Rscript {0}
         
-      - name: Upload to Object Storage
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
-        run: |
-          Rscript -e "aws.s3::put_object(file = 'docs/banner_test.pdf', object = 'banner_test.pdf', bucket = 'rfc-conditions/gw_forecasting', region = '', acl = 'public-read')"
+      # - name: Upload to Object Storage
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     AWS_S3_ENDPOINT: ${{ secrets.AWS_S3_ENDPOINT }}
+      #   run: |
+      #     Rscript -e "source(99_objectstore.R)"
