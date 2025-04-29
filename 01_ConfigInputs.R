@@ -55,10 +55,10 @@ if(length(new.packages)) install.packages(new.packages)
 # install.packages("weathercan", 
 #                  repos = c("https://ropensci.r-universe.dev", 
 #                            "https://cloud.r-project.org"))
-remotes::install_github("ropensci/weathercan")
-remotes::install_github("bcgov/bcsnowdata")
-
-pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
+# remotes::install_github("ropensci/weathercan")
+# remotes::install_github("bcgov/bcsnowdata")
+# 
+# pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
 
 lapply(pkgs, library, character.only = TRUE) 
 
