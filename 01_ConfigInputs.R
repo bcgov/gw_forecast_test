@@ -21,31 +21,31 @@ pkgs <- c(#'tidyverse',
   'tibble',
   'forcats',
   'padr',
-          'zoo',
-          'ggplot2',
-          'patchwork',
-          'readxl',
-          'RSQLite',
-          'randomForest',
-          'ggnewscale',
-          'forecast',
-          'mgcv',
-          # 'stats',
-          'xts',
-          'powerjoin',
-          'foreach',
-          'doParallel',
-          'reshape',
-          "janitor",
-          "ggpubr",
-          'sp',
-          'sf',
-          'nnet',
-          'cowplot',
-          'aws.s3',
+  'zoo',
+  'ggplot2',
+  'patchwork',
+  'readxl',
+  'RSQLite',
+  'randomForest',
+  'ggnewscale',
+  'forecast',
+  'mgcv',
+  # 'stats',
+  'xts',
+  'powerjoin',
+  'foreach',
+  'doParallel',
+  'reshape',
+  "janitor",
+  "ggpubr",
+  'sp',
+  'sf',
+  'nnet',
+  'cowplot',
+  'aws.s3',
   'pak'
   #'remotes',
-  )
+)
 
 #Queries and installs missing packages
 # options(timeout = 1200)
@@ -54,12 +54,18 @@ if(length(new.packages)) install.packages(new.packages)
 
 
 # Non-cran packages
-pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
-pak::pak("ropensci/weathercan")
-pak::pak("bcgov/bcsnowdata")
+pkgs_github <- c('weathercan', 'bcsnowdata')
+new.packages_github <- pkgs_github[!(pkgs_github %in% installed.packages()[,"Package"])]
+
+if ('weathercan' %in% new.packages_github) {
+  pak::pak("ropensci/weathercan")
+}
+if ('bcsnowdata' %in% new.packages_github) {
+  pak::pak("bcgov/bcsnowdata")
+}
 
 # load packages
-
+pkgs <- c(pkgs, pkgs_github)
 lapply(pkgs, library, character.only = TRUE) 
 
 

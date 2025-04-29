@@ -47,13 +47,13 @@ Regional_group_list <- Regional_group_list[1]
 
 climate_data <- dl_climate_data(pgown_well_info, data_location)
 
-pgown_data <- dl_pgown_wl_data(pgown_well_info, data_location)
-
-snow_data <- dl_snow_data(pgown_well_info, data_location) 
-
-ensemble_forecast_data <- dl_ensemble_forecast(pgown_well_info,data_location)
-
-deterministic_forecast_data <- dl_deterministic_forecast(pgown_well_info,data_location)
+# pgown_data <- dl_pgown_wl_data(pgown_well_info, data_location)
+# 
+# snow_data <- dl_snow_data(pgown_well_info, data_location) 
+# 
+# ensemble_forecast_data <- dl_ensemble_forecast(pgown_well_info,data_location)
+# 
+# deterministic_forecast_data <- dl_deterministic_forecast(pgown_well_info,data_location)
 
 
 # 
