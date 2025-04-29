@@ -11,9 +11,16 @@
 # ==============================================================================
 #
 ## LOAD CRAN PACKAGES --------------------------------------------------
-pkgs <- c('tidyverse',
-          'lubridate',
-          'padr',
+pkgs <- c(#'tidyverse',
+  'dplyr',
+  'ggplot2',
+  'tidyr',
+  'lubridate',
+  'readr',
+  'stringr',
+  'tibble',
+  'forcats',
+  'padr',
           'weathercan',
           'zoo',
           'ggplot2',

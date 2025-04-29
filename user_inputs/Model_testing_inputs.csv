@@ -1,0 +1,5 @@
+Well,Regional_group,Region,Location,latitude,longitude,aquifer_id,Snow_influenced,Climate_station_Id,Climate_Infilled_id,Climate_secondary_Infilled,Climate_tertiary_Infilled,Climate_quaternary_Infilled,snow_stn,Lag_time,DWC_Precip,DWC_Snow,station_name_RF_forecast,ann_size,ann_decay,ann_maxit
+OW375,test,Kamloops,Blue River,52.116147,-119.31344,825,1,1237,8214,1367,1340,NA,1E02P,7,100,100,BLU,10,0.1,500
+OW464,test,Kamloops,Canoe Creek,50.65262,-119.20195,109,1,6843,46987,1216,48369,NA,1F03P,7,100,100,SLA,5,0.1,200
+OW401,test,Penticton,Osoyoos,49.023341,-119.363599,808,1,1053. 50269,1041,1091,979,1100,2G03P,7,100,2,WYY,10,0.1,200
+OW402,test,Penticton,Osoyoos,49.030404,-119.347269,936,1,1053. 50269,1041,1091,979,1100,2E07P,7,100,10,WYY,5,0.001,500
