@@ -1,4 +1,4 @@
-name: Test forecasting scripts on GitHub Actions
+name: Test gw forecasting scripts on GitHub Actions
 
 on:
   push:
