@@ -10,6 +10,18 @@
 # 
 # ==============================================================================
 #
+
+# Set library path for cache
+is_github_actions <- Sys.getenv("GITHUB_ACTIONS") == "true"
+
+if (is_github_actions) {
+  message("Running inside GitHub Actions")
+  .libPaths("~/.local/share/R/library")
+} else {
+  message("Running locally")
+}
+
+
 ## LOAD CRAN PACKAGES --------------------------------------------------
 pkgs <- c(#'tidyverse',
   'dplyr',
@@ -20,6 +32,7 @@ pkgs <- c(#'tidyverse',
   'stringr',
   'tibble',
   'forcats',
+  'purrr',
   'padr',
   'zoo',
   'ggplot2',
@@ -81,7 +94,7 @@ user_input_location <- "user_inputs/"
 # Create the folders if they don't exist
 dir.create(data_location, showWarnings = FALSE)
 dir.create(figure_location, showWarnings = FALSE)
-
+dir.create(paste0(figure_location, "Model_results"), showWarnings = FALSE)
 
 # Fill in well information based on location 
 
