@@ -1,0 +1,46 @@
+Package: MyProject
+Type: Project
+Title: A short title for the project
+Version: 0.1.0
+Author: Your Name
+Maintainer: jon.goetz@gmail.com
+Description: A long description of the project.
+License: What license it uses (e.g., MIT, GPL-3)
+Depends:
+  R (>= 4.0.0)
+Imports:
+  dplyr,
+  ggplot2,
+  tidyr,
+  lubridate,
+  readr,
+  stringr,
+  tibble,
+  forcats,
+  padr,
+  # weathercan,
+  zoo,
+  patchwork,
+  readxl,
+  RSQLite,
+  randomForest,
+  ggnewscale,
+  forecast,
+  mgcv,
+  stats,
+  xts,
+  powerjoin,
+  foreach,
+  doParallel,
+  reshape,
+  janitor,
+  ggpubr,
+  sp,
+  sf,
+  nnet,
+  cowplot,
+  aws.s3,
+  remotes
+Suggests:
+  knitr,
+  rmarkdown
