@@ -46,6 +46,7 @@ pkgs <- c(#'tidyverse',
   'remotes')
 
 #Queries and installs missing packages
+options(timeout = 1200)
 new.packages <- pkgs[!(pkgs %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
