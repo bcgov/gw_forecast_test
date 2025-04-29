@@ -41,7 +41,7 @@ jobs:
         
       - name: Run Config File
         run: | 
-          Rscript -e "01_ConfigInputs.R"
+          Rscript -e "ConfigInputs.R"
 
         
       # - name: Upload to Object Storage
