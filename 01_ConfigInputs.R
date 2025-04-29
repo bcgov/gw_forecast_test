@@ -21,7 +21,6 @@ pkgs <- c(#'tidyverse',
   'tibble',
   'forcats',
   'padr',
-          # 'weathercan',
           'zoo',
           'ggplot2',
           'patchwork',
@@ -39,12 +38,12 @@ pkgs <- c(#'tidyverse',
           'reshape',
           "janitor",
           "ggpubr",
-          "sp",
-          "sf",
-          "nnet",
-          "cowplot",
-          "aws.s3",
-  "remotes")
+          'sp',
+          'sf',
+          'nnet',
+          'cowplot',
+          'aws.s3',
+  'remotes')
 
 #Queries and installs missing packages
 new.packages <- pkgs[!(pkgs %in% installed.packages()[,"Package"])]
@@ -52,9 +51,10 @@ if(length(new.packages)) install.packages(new.packages)
 
 
 # Non-cran packages
-install.packages("weathercan", 
-                 repos = c("https://ropensci.r-universe.dev", 
-                           "https://cloud.r-project.org"))
+# install.packages("weathercan", 
+#                  repos = c("https://ropensci.r-universe.dev", 
+#                            "https://cloud.r-project.org"))
+remotes::install_github("ropensci/weathercan")
 remotes::install_github("bcgov/bcsnowdata")
 
 pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
