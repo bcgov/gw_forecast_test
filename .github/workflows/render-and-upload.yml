@@ -22,6 +22,7 @@ jobs:
          sudo apt-get install -y libglpk-dev
          sudo apt-get install -y fonts-liberation
          sudo apt-get install -y libgdal-dev libproj-dev libgeos-dev
+         sudo apt-get install -y libsqlite3-dev
          
       - name: Cache R packages # Cache R packages to speed up future runs
         uses: actions/cache@v3
@@ -38,7 +39,6 @@ jobs:
           packages: |
             any::rmarkdown
             any::tinytex
-            any::aws.s3
             
       - name: Check out repository
         uses: actions/checkout@v3
@@ -50,6 +50,8 @@ jobs:
         # run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
         
       - name: Run Config File
+        env:
+          GITHUB_PAT: ${{ secrets.MY_GITHUB_PAT }}
         run: Rscript -e 'source("01_ConfigInputs.R")'
 
         
