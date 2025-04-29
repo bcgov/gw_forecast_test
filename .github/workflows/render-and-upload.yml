@@ -1,4 +1,4 @@
-name: Render and Upload RMarkdown
+name: Test forecasting scripts on GitHub Actions
 
 on:
   push:
@@ -49,7 +49,7 @@ jobs:
       - name: Install latex packages with tinytex
         run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
         
-      - name: Run Config File # testing with config, but run modeling script as it reads in this one.
+      - name: Run forecasting R script
         run: Rscript -e 'source("03_Model_Forecasting.R")'
 
         

@@ -11,9 +11,10 @@
 # ==============================================================================
 #
 
-# Set library path for cache
+# Test if running on Github Actions
 is_github_actions <- Sys.getenv("GITHUB_ACTIONS") == "true"
 
+# Set library path for cache
 if (is_github_actions) {
   message("Running inside GitHub Actions")
   .libPaths("~/.local/share/R/library")
