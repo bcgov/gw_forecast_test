@@ -38,18 +38,26 @@ pkgs <- c(#'tidyverse',
           'doParallel',
           'bcsnowdata',
           'reshape',
-          'dplyr',
           "janitor",
           "ggpubr",
           "sp",
           "sf",
           "nnet",
           "cowplot",
-          "aws.s3")
+          "aws.s3",
+  "remotes")
 
 #Queries and installs missing packages
 new.packages <- pkgs[!(pkgs %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
+
+
+install.packages("weathercan", 
+                 repos = c("https://ropensci.r-universe.dev", 
+                           "https://cloud.r-project.org"))
+remotes::install_github("bcgov/bcsnowdata")
+
+pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
 
 lapply(pkgs, library, character.only = TRUE) 
 
