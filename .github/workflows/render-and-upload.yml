@@ -40,8 +40,7 @@ jobs:
         # run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
         
       - name: Run Config File
-        run: | 
-          Rscript -e "ConfigInputs.R"
+        run: Rscript -e 'source("01_ConfigInputs.R")'
 
         
       # - name: Upload to Object Storage
