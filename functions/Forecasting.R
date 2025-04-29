@@ -1941,7 +1941,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        
-       directory_path <- paste0("G:/R/projects/Groundwater Forecasting/", output_path)
+       # directory_path <- paste0("G:/R/projects/Groundwater Forecasting/", output_path)
        
        
        rmarkdown::render("docs/gw_forecast_report.Rmd", 
@@ -1950,7 +1950,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                                           legend_plot, rel_widths = c(0.8,0.2)),
                                        "table" = table_gt),
                          output_dir = output_path,
-                         output_file = paste0(directory_path,"/","Well_", y, "_Model_Predictions.pdf"))
+                         output_file = paste0("Well_", y, "_Model_Predictions.pdf"))
        
        
        
