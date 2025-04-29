@@ -17,7 +17,9 @@ is_github_actions <- Sys.getenv("GITHUB_ACTIONS") == "true"
 # Set library path for cache
 if (is_github_actions) {
   message("Running inside GitHub Actions")
-  .libPaths("~/.local/share/R/library")
+  Sys.setenv(R_LIBS_USER = "~/.local/share/R/library")
+  dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE, showWarnings = FALSE)
+  .libPaths(Sys.getenv("R_LIBS_USER"))
 } else {
   message("Running locally")
 }
@@ -57,14 +59,16 @@ pkgs <- c(#'tidyverse',
   'nnet',
   'cowplot',
   'aws.s3',
-  'pak'
+  'pak',
+  'rmarkdown',
+  'tinytex'
   #'remotes',
 )
 
 #Queries and installs missing packages
 # options(timeout = 1200)
 new.packages <- pkgs[!(pkgs %in% installed.packages()[,"Package"])]
-if(length(new.packages)) install.packages(new.packages)
+if(length(new.packages)) install.packages(new.packages, lib = Sys.getenv("R_LIBS_USER"))
 
 
 # Non-cran packages
@@ -72,10 +76,10 @@ pkgs_github <- c('weathercan', 'bcsnowdata')
 new.packages_github <- pkgs_github[!(pkgs_github %in% installed.packages()[,"Package"])]
 
 if ('weathercan' %in% new.packages_github) {
-  pak::pak("ropensci/weathercan")
+  pak::pak("ropensci/weathercan", lib = Sys.getenv("R_LIBS_USER"))
 }
 if ('bcsnowdata' %in% new.packages_github) {
-  pak::pak("bcgov/bcsnowdata")
+  pak::pak("bcgov/bcsnowdata", lib = Sys.getenv("R_LIBS_USER"))
 }
 
 # load packages
