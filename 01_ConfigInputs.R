@@ -43,7 +43,9 @@ pkgs <- c(#'tidyverse',
           'nnet',
           'cowplot',
           'aws.s3',
-  'remotes')
+  'pak'
+  #'remotes',
+  )
 
 #Queries and installs missing packages
 options(timeout = 1200)
@@ -58,7 +60,10 @@ if(length(new.packages)) install.packages(new.packages)
 # remotes::install_github("ropensci/weathercan")
 # remotes::install_github("bcgov/bcsnowdata")
 # 
-# pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
+pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
+
+pak::pak("ropensci/weathercan")
+pak::pak("bcgov/bcsnowdata")
 
 lapply(pkgs, library, character.only = TRUE) 
 
