@@ -21,7 +21,7 @@ pkgs <- c(#'tidyverse',
   'tibble',
   'forcats',
   'padr',
-          'weathercan',
+          # 'weathercan',
           'zoo',
           'ggplot2',
           'patchwork',
@@ -51,6 +51,7 @@ new.packages <- pkgs[!(pkgs %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
 
+# Non-cran packages
 install.packages("weathercan", 
                  repos = c("https://ropensci.r-universe.dev", 
                            "https://cloud.r-project.org"))
