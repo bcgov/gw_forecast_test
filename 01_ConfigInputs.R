@@ -125,7 +125,7 @@ Regional_group_list <- as.list(Regional_group_list)
 forecast_days <- c(14,30,60,90)
 
 # Number of cores (for parallel computing)
-num_cores <- 4
+num_cores <- 2
 
 # OPTIONS ----------------------------------------------------------------
 

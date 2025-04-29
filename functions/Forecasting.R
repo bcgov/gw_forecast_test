@@ -1856,7 +1856,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        library(grid)     # to convert to a rasterGrob
        library(gridExtra)
        
-       logo <- readPNG("BCID_V_RGB_rev.png")  # replace with your file path
+       logo <- readPNG("docs/BCID_V_RGB_rev.png")  # replace with your file path
        logo_grob <- rasterGrob(logo, interpolate = TRUE)
        
        table_data <- temp_chart_gg
