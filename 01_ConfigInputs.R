@@ -48,22 +48,17 @@ pkgs <- c(#'tidyverse',
   )
 
 #Queries and installs missing packages
-options(timeout = 1200)
+# options(timeout = 1200)
 new.packages <- pkgs[!(pkgs %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
 
 
 # Non-cran packages
-# install.packages("weathercan", 
-#                  repos = c("https://ropensci.r-universe.dev", 
-#                            "https://cloud.r-project.org"))
-# remotes::install_github("ropensci/weathercan")
-# remotes::install_github("bcgov/bcsnowdata")
-# 
 pkgs <- c(pkgs, 'weathercan', 'bcsnowdata')
-
 pak::pak("ropensci/weathercan")
 pak::pak("bcgov/bcsnowdata")
+
+# load packages
 
 lapply(pkgs, library, character.only = TRUE) 
 

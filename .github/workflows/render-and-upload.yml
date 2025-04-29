@@ -29,7 +29,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.local/share/R/library
-          key: ${{ runner.os }}-r-pkgs-v1  # static key you update manually if needed
+          key: ${{ runner.os }}-r-pkgs-v1
          
       - name: Install packages
         uses: r-lib/actions/setup-r-dependencies@v2
@@ -41,11 +41,11 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
         
-      # - name: Install tinytex
-      #   run: Rscript -e 'tinytex::install_tinytex()'
+      - name: Install tinytex
+        run: Rscript -e 'tinytex::install_tinytex()'
         
-      # - name: Install tinytex
-        # run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
+      - name: Install tinytex
+        run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
         
       - name: Run Config File # testing with config, but run modeling script as it reads in this one.
         run: Rscript -e 'source("01_ConfigInputs.R")'
