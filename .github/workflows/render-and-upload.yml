@@ -48,7 +48,7 @@ jobs:
         run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs"))'
         
       - name: Run Config File # testing with config, but run modeling script as it reads in this one.
-        run: Rscript -e 'source("01_ConfigInputs.R")'
+        run: Rscript -e 'source("03_Model_Forecasting.R")'
 
         
       # - name: Upload to Object Storage
