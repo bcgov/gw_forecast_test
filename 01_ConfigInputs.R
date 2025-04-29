@@ -61,7 +61,8 @@ pkgs <- c(#'tidyverse',
   'aws.s3',
   'pak',
   'rmarkdown',
-  'tinytex'
+  'tinytex',
+  'gt'
   #'remotes',
 )
 
