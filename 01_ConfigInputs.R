@@ -78,6 +78,10 @@ data_location <- "data/"
 model_path <- "models/"
 user_input_location <- "user_inputs/"
 
+# Create the folders if they don't exist
+dir.create(data_location, showWarnings = FALSE)
+dir.create(figure_location, showWarnings = FALSE)
+
 
 # Fill in well information based on location 
 
