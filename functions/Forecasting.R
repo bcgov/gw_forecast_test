@@ -59,7 +59,16 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
   #run calculations for each well in parellel
   
   simulated_data <- foreach(y = Well_list, .combine = rbind, 
-                            .packages = c("ggpubr", "dplyr", "tidyverse", "mgcv", "randomForest","zoo","ggnewscale", "cowplot","nnet")) %dopar% {
+                            .packages = c("ggpubr", "dplyr",
+                                          'ggplot2',
+                                          'tidyr',
+                                          'lubridate',
+                                          'readr',
+                                          'stringr',
+                                          'tibble',
+                                          'forcats',
+                                          'purrr',
+                                          "mgcv", "randomForest","zoo","ggnewscale", "cowplot","nnet")) %dopar% {
                                # filter data by well     
                               #y=Well_list[1]
   
