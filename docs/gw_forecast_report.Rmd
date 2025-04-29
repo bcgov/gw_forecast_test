@@ -1,0 +1,84 @@
+---
+output:
+  pdf_document:
+    includes:
+      in_header: gw_forecast_report.tex
+    latex_engine: xelatex
+params:
+  well_id: NULL
+  plot: NULL
+  table: NULL
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(gt)
+```
+
+# Observation Well: `r params$well_id`
+## Rainfall | Updated Apr 24, 2025
+
+```{r plot, fig.height=6, fig.width=10}
+params$plot
+```
+
+
+## Likelihood of Groundwater Level Conditions (%)
+
+```{r table}
+params$table %>% 
+  # as_latex() %>% 
+  tab_options(latex.use_longtable=TRUE)#%>%
+  # opt_table_format(format = "latex")
+
+#   
+#   
+# tb <- params$table %>%
+#   mutate(across(
+#     .cols = -1,  # Skip the first column
+#     .fns = ~ as.numeric(gsub("[^0-9.]", "", .x)),  # Strip <, >, and convert
+#     .names = "{.col}"
+#   ))# %>% 
+#  # select(c(1,6:9))
+# 
+# tb <- tb %>% 
+#   gt() %>% 
+#   # as_latex() %>% 
+#   tab_options(latex.use_longtable=TRUE) %>%
+#   tab_style(
+#     style = cell_fill(color = "lightgreen"),
+#     locations = cells_body(
+#       columns = 2:5,  # Columns 2 to 5 (time periods)
+#       rows = tb[[2]] >= 95 |
+#         tb[[3]] >= 95 |
+#         tb[[4]] >= 95 |
+#         tb[[5]] >= 95
+#     )
+#   )
+# # tb <- as.character(tb)
+# # 
+# # latex_code_clean <- gsub("\\\\begin\\{table\\}\\[.*\\]", "", tb)
+# # latex_code_clean <- gsub("\\\\end\\{table\\}", "", latex_code_clean)
+# # 
+# # 
+# # cat(latex_code_clean)
+# tb
+# # params$table %>%
+#   knitr::kable(
+#     format = "latex",
+#     align = "l",
+#    # booktabs = TRUE,
+#    # longtable = TRUE,
+#     linesep = "") %>%
+#   kableExtra::kable_styling(
+#       # position = "left",
+#       latex_options = c("striped", "hold_position")
+#       # stripe_color = "gray!15"
+#     )
+```
+
+**Disclaimer**: Groundwater level forecasts use statistical models and third-party data. These models have two types of errors: systematic (model limitations) and random (input data). Forecasts may differ from actual observations, and water levels could exceed forecast bounds. Users must accept responsibility for their use and interpretation.
+
+BC River Forecast Centre
+Updated: 24 April 2025 12:00
