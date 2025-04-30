@@ -69,7 +69,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                           'forcats',
                                           'purrr',
                                           'gt',
-                                          "mgcv", "randomForest","zoo","ggnewscale", "cowplot","nnet")) %do% {
+                                          "mgcv", "randomForest","zoo","ggnewscale", "cowplot","nnet")) %dopar% {
                                # filter data by well
                               #y=Well_list[1]
   #                                           
