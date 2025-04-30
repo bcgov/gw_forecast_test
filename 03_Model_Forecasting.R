@@ -44,7 +44,7 @@ Regional_group_list <- Regional_group_list[1]
   
     
     pgown_well_info <- pgown_well_info %>% 
-      filter(Well %in% pull(pgown_well_info, Well)[1:2])
+      filter(Well %in% pull(pgown_well_info, Well)[1:4])
 
 ## Downloads -------------------------------------------------------------------
 
