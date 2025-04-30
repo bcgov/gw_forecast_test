@@ -69,7 +69,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                           'forcats',
                                           'purrr',
                                           'gt',
-                                          "mgcv", "randomForest","zoo","ggnewscale", "cowplot","nnet")) %dopar% {
+                                          "mgcv", "randomForest","zoo","ggnewscale", "cowplot","nnet")) %do% {
                                # filter data by well
                               #y=Well_list[1]
   #                                           
@@ -1876,11 +1876,11 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
        dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
        
-       # font_dir <- paste0(tmp_dir, "\\fonts\\")
-       # dir.create(font_dir)
+       int_dir <- file.path(tempdir(), paste0("int_", y))
+       dir.create(int_dir, recursive = TRUE, showWarnings = FALSE)
+
        temp_font_dir <- file.path(tmp_dir, "fonts")
        dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
-       
        
        # Copy files into temp dir
        rmd_copy <- file.copy("docs/gw_forecast_report.Rmd", tmp_dir)
@@ -1889,10 +1889,6 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
                                to = temp_font_dir, recursive = FALSE)
        
-       
-       
-       int_dir <- file.path(tempdir(), paste0("int_", y))
-       dir.create(int_dir, recursive = TRUE)
        
        
        library(ggplot2)
