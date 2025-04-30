@@ -1,6 +1,8 @@
 name: Test gw forecasting scripts on GitHub Actions
 
 on:
+  schedule:
+    - cron: '0 10 * * *'  # Daily at 11am Pacific (18:00 UTC)push:
   push:
     branches: [main]
 
