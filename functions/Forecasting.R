@@ -1850,13 +1850,39 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        recharge_type_2 <- ifelse(plot_type == "snow", "Snow", "Rain")
        
        
+       
+       
+       
+       # Temporary directory for rendering
+       tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
+       dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
+       
+       # font_dir <- paste0(tmp_dir, "\\fonts\\")
+       # dir.create(font_dir)
+       temp_font_dir <- file.path(tmp_dir, "fonts")
+       dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
+       
+       
+       # Copy files into temp dir
+       rmd_copy <- file.copy("docs/gw_forecast_report.Rmd", tmp_dir)
+       tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
+       png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
+       fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
+                               to = temp_font_dir, recursive = FALSE)
+       
+       
+       
+       
+       
+       
        library(ggplot2)
        library(cowplot)
        library(png)      # to read PNG images
        library(grid)     # to convert to a rasterGrob
        library(gridExtra)
        
-       logo <- readPNG("docs/BCID_V_RGB_rev.png")  # replace with your file path
+       logo <- readPNG(file.path(tmp_dir,"BCID_V_RGB_rev.png"))  # replace with your file path
+     #  logo <- readPNG("docs/BCID_V_RGB_rev.png")  # replace with your file path
        logo_grob <- rasterGrob(logo, interpolate = TRUE)
        
        table_data <- temp_chart_gg
@@ -1945,26 +1971,22 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        
-       # Temporary directory for rendering
-       tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
-       dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
-       
-       # font_dir <- paste0(tmp_dir, "\\fonts\\")
-       # dir.create(font_dir)
-       temp_font_dir <- file.path(tmp_dir, "fonts")
-       dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
-       
-       
-       # Copy files into temp dir
-       rmd_copy <- file.copy("docs/gw_forecast_report.Rmd", tmp_dir)
-       tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
-       png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
-       fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
-                               to = temp_font_dir, recursive = FALSE)
+   
+       # 
+       # # Sanity checks
+       # stopifnot(file.exists(file.path(tmp_dir, "gw_forecast_report.Rmd")))
+       # stopifnot(file.exists(file.path(tmp_dir, "gw_forecast_report.tex")))
+       # stopifnot(file.exists(file.path(tmp_dir, "BCID_V_RGB_rev.png")))
+       # stopifnot(length(list.files(temp_font_dir)) > 0)
        
        # Path to copied Rmd
-       tmp_rmd <- file.path(tmp_dir, basename("docs/gw_forecast_report.Rmd"))
+       tmp_rmd <- file.path(tmp_dir, "gw_forecast_report.Rmd")
        
+       
+       # # Logging (useful for debugging parallel jobs)
+       # message("Rendering report for: ", y)
+       # message("Temporary directory: ", tmp_dir)
+       # message("Intermediate directory: ", int_dir)
        
        rmarkdown::render(input = tmp_rmd,
                          params = list("well_id" = y[[1]],
@@ -1973,7 +1995,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                        "table" = table_gt),
                          output_dir = output_path,
                          output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
-                         intermediates_dir = file.path(tempdir(), paste0("int_", y)),  # Isolate temp files
+                         intermediates_dir = tmp_dir,  # Isolate temp files
                          envir = new.env())
        
        
