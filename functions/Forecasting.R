@@ -1947,7 +1947,8 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        # Temporary directory for rendering
        tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
-       dir.create(tmp_dir)
+       dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
+       
        # font_dir <- paste0(tmp_dir, "\\fonts\\")
        # dir.create(font_dir)
        temp_font_dir <- file.path(tmp_dir, "fonts")
