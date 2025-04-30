@@ -1891,7 +1891,8 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        
-       
+       int_dir <- file.path(tempdir(), paste0("int_", y))
+       dir.create(int_dir, recursive = TRUE)
        
        
        library(ggplot2)
@@ -2008,15 +2009,15 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        # message("Intermediate directory: ", int_dir)
        
        rmarkdown::render(input = tmp_rmd,
+                         output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
+                         output_dir = output_path,
+                         knit_root_dir = tmp_dir,
+                         intermediates_dir = int_dir,  # Isolate temp files
+                         envir = new.env(),
                          params = list("well_id" = y[[1]],
                                        "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
                                                           legend_plot, rel_widths = c(0.8,0.2)),
-                                       "table" = table_gt),
-                         output_dir = output_path,
-                         knit_root_dir = tmp_dir,
-                         output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
-                         intermediates_dir = tmp_dir,  # Isolate temp files
-                         envir = new.env())
+                                       "table" = table_gt))
        
        
        
