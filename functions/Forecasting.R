@@ -1944,11 +1944,14 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        # directory_path <- paste0("G:/R/projects/Groundwater Forecasting/", output_path)
        
        
+       
        # Temporary directory for rendering
        tmp_dir <- tempfile()
        dir.create(tmp_dir)
-       font_dir <- paste0(tmp_dir, "\\fonts\\")
-       dir.create(font_dir)
+       # font_dir <- paste0(tmp_dir, "\\fonts\\")
+       # dir.create(font_dir)
+       temp_font_dir <- file.path(tmp_dir, "fonts")
+       dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
        
        
        # Copy files into temp dir
@@ -1956,22 +1959,21 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
        png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
        fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
-                               font_dir, recursive = TRUE)
+                               temp_font_dir, recursive = TRUE)
        
        # Path to copied Rmd
        tmp_rmd <- file.path(tmp_dir, basename("docs/gw_forecast_report.Rmd"))
        
        
-       rmarkdown::render(input = tmp_rmd, 
+       rmarkdown::render(input = tmp_rmd,
                          params = list("well_id" = y[[1]],
                                        "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
                                                           legend_plot, rel_widths = c(0.8,0.2)),
                                        "table" = table_gt),
                          output_dir = output_path,
                          output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
-                         intermediates_dir = tmp_dir,  # Isolate temp files
+                         intermediates_dir = tempfile(),  # Isolate temp files
                          envir = new.env())
-       
        
        
        
