@@ -766,8 +766,18 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
         
         
         
-        model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
-        load(model_file)
+        # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
+        # load(model_file)
+        
+        # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
+        model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
+        # load(url(model_file))
+        
+        # Create unique temp file per task
+        tmp_rdata <- tempfile(fileext = ".RData")
+        # Safely download the file and load it
+        download.file(model_file, destfile = tmp_rdata, mode = "wb")
+        load(tmp_rdata)
         
 
         
@@ -1872,22 +1882,22 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        
-       # Temporary directory for rendering
-       tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
-       dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
-       
-       int_dir <- file.path(tempdir(), paste0("int_", y))
-       dir.create(int_dir, recursive = TRUE, showWarnings = FALSE)
-
-       temp_font_dir <- file.path(tmp_dir, "fonts")
-       dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
-       
-       # Copy files into temp dir
-       rmd_copy <- file.copy("docs/gw_forecast_report.Rmd", tmp_dir)
-       tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
-       png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
-       fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
-                               to = temp_font_dir, recursive = FALSE)
+       # # Temporary directory for rendering
+       # tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
+       # dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
+       # 
+       # int_dir <- file.path(tempdir(), paste0("int_", y))
+       # dir.create(int_dir, recursive = TRUE, showWarnings = FALSE)
+       # 
+       # temp_font_dir <- file.path(tmp_dir, "fonts")
+       # dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
+       # 
+       # # Copy files into temp dir
+       # rmd_copy <- file.copy("docs/gw_forecast_report.Rmd", tmp_dir)
+       # tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
+       # png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
+       # fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
+       #                         to = temp_font_dir, recursive = FALSE)
        
        
        
@@ -1897,8 +1907,8 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        library(grid)     # to convert to a rasterGrob
        library(gridExtra)
        
-       logo <- readPNG(file.path(tmp_dir,"BCID_V_RGB_rev.png"))  # replace with your file path
-      # logo <- readPNG("docs/BCID_V_RGB_rev.png")  # replace with your file path
+       # logo <- readPNG(file.path(tmp_dir,"BCID_V_RGB_rev.png"))  # replace with your file path
+      logo <- readPNG("docs/BCID_V_RGB_rev.png")  # replace with your file path
        logo_grob <- rasterGrob(logo, interpolate = TRUE)
        
        table_data <- temp_chart_gg
@@ -1996,7 +2006,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        # stopifnot(length(list.files(temp_font_dir)) > 0)
        
        # Path to copied Rmd
-       tmp_rmd <- file.path(tmp_dir, "gw_forecast_report.Rmd")
+       # tmp_rmd <- file.path(tmp_dir, "gw_forecast_report.Rmd")
        
        
        # # Logging (useful for debugging parallel jobs)
@@ -2004,18 +2014,24 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        # message("Temporary directory: ", tmp_dir)
        # message("Intermediate directory: ", int_dir)
        
-       rmarkdown::render(input = tmp_rmd,
-                         output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
-                         output_dir = output_path,
-                         knit_root_dir = tmp_dir,
-                         intermediates_dir = int_dir,  # Isolate temp files
-                         envir = new.env(),
+       # rmarkdown::render(input = tmp_rmd,
+       #                   output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
+       #                   output_dir = output_path,
+       #                   knit_root_dir = tmp_dir,
+       #                   intermediates_dir = int_dir,  # Isolate temp files
+       #                   envir = new.env(),
+       #                   params = list("well_id" = y[[1]],
+       #                                 "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
+       #                                                    legend_plot, rel_widths = c(0.8,0.2)),
+       #                                 "table" = table_gt))
+       
+       rmarkdown::render("docs/gw_forecast_report.Rmd",
                          params = list("well_id" = y[[1]],
                                        "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
                                                           legend_plot, rel_widths = c(0.8,0.2)),
-                                       "table" = table_gt))
-       
-       
+                                       "table" = table_gt),
+                         output_dir = output_path,
+                         output_file = paste0("Well_", y, "_Model_Predictions.pdf"))
        
        ######
        
