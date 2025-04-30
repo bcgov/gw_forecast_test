@@ -24,7 +24,7 @@ output_files <- list.files(file_loc)
 
 for (file_name in output_files) {
   # file_name <- output_files[1]
-  put_object(file = paste0(file_loc,"\\", file_name),
+  put_object(file = file.path(file_loc, file_name),
              object = file_name,
              bucket = b, region = r, 
              acl = "public-read")
