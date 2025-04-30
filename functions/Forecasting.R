@@ -367,20 +367,20 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
       model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
       # load(url(model_file))
       
+      # Create unique temp file per task
+      tmp_rdata <- tempfile(fileext = ".RData")
+      # Safely download the file and load it
+      download.file(model_file, destfile = tmp_rdata, mode = "wb")
+      load(tmp_rdata)
+      
+      
       # model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
       # con <- url(model_file)
       # on.exit(close(con), add = TRUE)  # ensures connection closes even on error
       # load(con)
       # close(con) 
       
-      # Create unique temp file per task
-      tmp_rdata <- tempfile(fileext = ".RData")
-      
-      # Safely download the file
-      download.file(model_file, destfile = tmp_rdata, mode = "wb")
-      
-      # Load it
-      load(tmp_rdata)
+
       
         
            # Calculate the mean and standard deviation of the variables by day
