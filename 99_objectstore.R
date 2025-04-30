@@ -18,12 +18,13 @@ library(aws.s3)
 b <- 'rfc-conditions/gw_forecasting/outputs'
 r <- ""
 
-file_loc <- output_path
+file_loc <- normalizePath(output_path)
 
 output_files <- list.files(file_loc)
 
 for (file_name in output_files) {
-  put_object(paste0(file_loc, file_name),
+  # file_name <- output_files[1]
+  put_object(file = paste0(file_loc,"\\", file_name),
              object = file_name,
              bucket = b, region = r, 
              acl = "public-read")
