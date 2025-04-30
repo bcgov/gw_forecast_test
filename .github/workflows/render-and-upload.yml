@@ -47,7 +47,7 @@ jobs:
         run: Rscript -e 'tinytex::install_tinytex()'
         
       - name: Install latex packages with tinytex
-        run: Rscript -e 'tinytex::tlmgr_install(c("longtable", "booktabs","anyfontsize"))'
+        run: Rscript -e 'tinytex::tlmgr_install(c("anyfontsize", "fontspec", "xcolor", "tikz", "graphicx", "caption", "booktabs", "multirow", "longtable", "colortbl"))'
         
       - name: Run forecasting R script
         run: Rscript -e 'source("03_Model_Forecasting.R")'
