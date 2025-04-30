@@ -1946,7 +1946,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        # Temporary directory for rendering
-       tmp_dir <- tempfile()
+       tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
        dir.create(tmp_dir)
        # font_dir <- paste0(tmp_dir, "\\fonts\\")
        # dir.create(font_dir)
@@ -1959,7 +1959,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
        png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
        fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
-                               temp_font_dir, recursive = TRUE)
+                               to = temp_font_dir, recursive = FALSE)
        
        # Path to copied Rmd
        tmp_rmd <- file.path(tmp_dir, basename("docs/gw_forecast_report.Rmd"))
@@ -1972,7 +1972,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                        "table" = table_gt),
                          output_dir = output_path,
                          output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
-                         intermediates_dir = tmp_dir,  # Isolate temp files
+                         intermediates_dir = file.path(tempdir(), paste0("int_", y)),  # Isolate temp files
                          envir = new.env())
        
        
