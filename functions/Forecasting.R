@@ -1969,7 +1969,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                        "table" = table_gt),
                          output_dir = output_path,
                          output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
-                         intermediates_dir = tempfile(),  # Isolate temp files
+                         intermediates_dir = tmp_dir,  # Isolate temp files
                          envir = new.env())
        
        
