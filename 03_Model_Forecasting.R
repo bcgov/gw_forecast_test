@@ -44,7 +44,7 @@ Regional_group_list <- Regional_group_list[1]
   
     
     pgown_well_info <- pgown_well_info %>% 
-      filter(Well == "OW002")
+      filter(Well %in% pull(pgown_well_info, Well)[1:2])
 
 ## Downloads -------------------------------------------------------------------
 
@@ -87,6 +87,6 @@ source("functions/Forecasting.R")
 Model_Forecasting_data <- forecast_model(Time_series_data, forecast_days, num_cores, figure_location,output_path, model_path,pgown_well_info,ensemble_forecast_data,deterministic_forecast_data)
 
 
-write_csv(Model_Forecasting_data,paste0(output_path,"/predictive_forecast_results_",i,".csv"))
+write_csv(Model_Forecasting_data, paste0(output_path,"/predictive_forecast_results_",i,".csv"))
 
 # }
