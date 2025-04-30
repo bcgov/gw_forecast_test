@@ -26,10 +26,11 @@ figure_location <- "Output/"
 
 # Specify the path where you want to create the new folder
 output_path <- paste0(figure_location,"Model_results/",as.character(Sys.Date()))
+output_path <- normalizePath(output_path)
 
 # Create new folder
-# dir.create(output_path)
-dir.create(output_path, recursive = TRUE, showWarnings = FALSE)
+dir.create(output_path)
+# dir.create(output_path, recursive = TRUE, showWarnings = FALSE)
 
 ### AWS
 # put_bucket(bucket = paste0("rfc-conditions/gw_forecasting/outputs/", as.character(Sys.Date())))
