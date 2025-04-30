@@ -34,14 +34,17 @@ dir.create(output_path)
 # put_bucket(bucket = paste0("rfc-conditions/gw_forecasting/outputs/", as.character(Sys.Date())))
 Regional_group_list <- Regional_group_list[1]
 
-for(i in Regional_group_list){
+# for(i in Regional_group_list){
 
-  # i <- Regional_group_list[1]
+  i <- Regional_group_list[1]
   
     pgown_well_info <- pgown_well_info_all %>%
     # filter(Snow_influenced == 1)%>%
     filter(Regional_group == i) 
   
+    
+    pgown_well_info <- pgown_well_info %>% 
+      filter(Well == "OW002")
 
 ## Downloads -------------------------------------------------------------------
 
@@ -86,4 +89,4 @@ Model_Forecasting_data <- forecast_model(Time_series_data, forecast_days, num_co
 
 write_csv(Model_Forecasting_data,paste0(output_path,"/predictive_forecast_results_",i,".csv"))
 
-}
+# }
