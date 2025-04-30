@@ -766,8 +766,18 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
         
         
         
-        model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
-        load(model_file)
+        # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
+        # load(model_file)
+        
+        # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
+        model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
+        # load(url(model_file))
+        
+        # Create unique temp file per task
+        tmp_rdata <- tempfile(fileext = ".RData")
+        # Safely download the file and load it
+        download.file(model_file, destfile = tmp_rdata, mode = "wb")
+        load(tmp_rdata)
         
 
         
