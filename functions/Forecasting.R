@@ -365,12 +365,25 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
         
       # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
       model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
-      con <- url(model_file)
-      on.exit(close(con), add = TRUE)  # ensures connection closes even on error
-      load(con)
-      close(con) 
-      # explicitly close the connection after loading        
-      # Calculate the mean and standard deviation of the variables by day
+      # load(url(model_file))
+      
+      # model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
+      # con <- url(model_file)
+      # on.exit(close(con), add = TRUE)  # ensures connection closes even on error
+      # load(con)
+      # close(con) 
+      
+      # Create unique temp file per task
+      tmp_rdata <- tempfile(fileext = ".RData")
+      
+      # Safely download the file
+      download.file(model_file, destfile = tmp_rdata, mode = "wb")
+      
+      # Load it
+      load(tmp_rdata)
+      
+        
+           # Calculate the mean and standard deviation of the variables by day
         # need to use raw precip data 
         
         
