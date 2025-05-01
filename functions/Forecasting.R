@@ -72,9 +72,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                           "mgcv", "randomForest","zoo","ggnewscale", "cowplot","nnet")) %dopar% {
                                # filter data by well
                               #y=Well_list[1]
-  #                                           
-  # for (y in Well_list) {
-  # simulated_data <- bind_rows(lapply(Well_list, function(y){
+
   
    last_measurements_well <- last_measurements %>%
      filter(Well == y) %>%
@@ -367,21 +365,12 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
         
         
       # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
+      # load(model_file)
+      
       model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
-      # load(url(model_file))
-      
-      # Create unique temp file per task
-      tmp_rdata <- tempfile(fileext = ".RData")
-      # Safely download the file and load it
-      download.file(model_file, destfile = tmp_rdata, mode = "wb")
+      tmp_rdata <- tempfile(fileext = ".RData") # Create unique temp file per task
+      download.file(model_file, destfile = tmp_rdata, mode = "wb") # Safely download the file and load it
       load(tmp_rdata)
-      
-      
-      # model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
-      # con <- url(model_file)
-      # on.exit(close(con), add = TRUE)  # ensures connection closes even on error
-      # load(con)
-      # close(con) 
       
 
       
@@ -769,14 +758,9 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
         # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
         # load(model_file)
         
-        # model_file <- paste0(model_path,"ANN_Model_",y,"_",x,".Rdata")
         model_file <- paste0("https://nrs.objectstore.gov.bc.ca/rfc-conditions/gw_forecasting/models/","ANN_Model_",y[[1]],"_",x,".Rdata") #AWS
-        # load(url(model_file))
-        
-        # Create unique temp file per task
-        tmp_rdata <- tempfile(fileext = ".RData")
-        # Safely download the file and load it
-        download.file(model_file, destfile = tmp_rdata, mode = "wb")
+        tmp_rdata <- tempfile(fileext = ".RData") # Create unique temp file per task
+        download.file(model_file, destfile = tmp_rdata, mode = "wb") # Safely download the file and load it
         load(tmp_rdata)
         
 
@@ -1993,18 +1977,6 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        
-       # directory_path <- paste0("G:/R/projects/Groundwater Forecasting/", output_path)
-       
-       
-       
-   
-       # 
-       # # Sanity checks
-       # stopifnot(file.exists(file.path(tmp_dir, "gw_forecast_report.Rmd")))
-       # stopifnot(file.exists(file.path(tmp_dir, "gw_forecast_report.tex")))
-       # stopifnot(file.exists(file.path(tmp_dir, "BCID_V_RGB_rev.png")))
-       # stopifnot(length(list.files(temp_font_dir)) > 0)
-       
        # Path to copied Rmd
        # tmp_rmd <- file.path(tmp_dir, "gw_forecast_report.Rmd")
        
@@ -2099,7 +2071,6 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
       return(Probabilities_combined_output)
      
   }
-  # }))
-  
+
 }
 
