@@ -33,10 +33,12 @@ dir.create(output_path)
 
 for(i in Regional_group_list){
   
-  # i <- Regional_group_list[1]
+  # i <- Regional_group_list[7]
   
   pgown_well_info <- pgown_well_info_all %>%
     filter(Regional_group == i) 
+  
+  # pgown_well_info <- pgown_well_info[1,]
   
   
   ## Downloads -------------------------------------------------------------------
