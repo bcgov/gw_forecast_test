@@ -132,6 +132,11 @@ num_cores <- 2
 options(digits = 3, scipen = 5, warn = 0,
         timeout = 1200)# 20 minutes
 
+httr::set_config(httr::config(
+  connecttimeout = 60,  # time to establish connection
+  timeout = 600         # total time for request
+))
+
 ## AWS
 # library(aws.s3)
 # 
