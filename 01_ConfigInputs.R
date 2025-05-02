@@ -129,7 +129,8 @@ num_cores <- 2
 
 # OPTIONS ----------------------------------------------------------------
 
-options(digits = 3, scipen = 5, warn = 0)
+options(digits = 3, scipen = 5, warn = 0,
+        timeout = 1200)# 20 minutes
 
 ## AWS
 # library(aws.s3)
