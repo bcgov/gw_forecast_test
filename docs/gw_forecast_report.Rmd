@@ -6,6 +6,11 @@ output:
     latex_engine: xelatex
 params:
   well_id: NULL
+  well_location: NULL
+  well_tag_number: NULL
+  aquifer_num: NULL
+  aquifer_type: NULL
+  model_type: NULL
   plot: NULL
   table: NULL
 ---
@@ -16,21 +21,39 @@ library(knitr)
 library(gt)
 ```
 
-# Observation Well: `r params$well_id`
-## Rainfall | Updated Apr 24, 2025
+\vspace*{-1.75cm}
+
+\begin{center}
+\section*{Observation Well: `r paste0(params$well_id, " - ", params$well_location)`}
+\vspace{-2.2em}
+\end{center}
+
+\begin{center}
+\textbf{`r params$aquifer_num` | `r params$aquifer_type`}
+\vspace{-1.5em}
+\end{center}
+
+\begin{center}
+\textbf{`r params$model_type` | Forecast Issued: `r Sys.Date()`}
+\vspace{-1.5em}
+\end{center}
 
 ```{r plot, fig.height=6, fig.width=10}
 params$plot
 ```
 
 
-## Likelihood of Groundwater Level Conditions (%)
+\begin{center}
+\section*{Likelihood of Groundwater Level Conditions (\%)}
+\vspace{-2.5em}
+\end{center}
 
 ```{r table}
 params$table %>% 
   # as_latex() %>% 
-  tab_options(latex.use_longtable=TRUE)#%>%
-  # opt_table_format(format = "latex")
+  tab_options(latex.use_longtable=TRUE,
+              table.font.size = px(15))#%>%
+# opt_table_format(format = "latex")
 
 #   
 #   
@@ -80,5 +103,13 @@ params$table %>%
 
 **Disclaimer**: Groundwater level forecasts use statistical models and third-party data. These models have two types of errors: systematic (model limitations) and random (input data). Forecasts may differ from actual observations, and water levels could exceed forecast bounds. Users must accept responsibility for their use and interpretation.
 
-BC River Forecast Centre
-Updated: 24 April 2025 12:00
+\begin{center}
+Model Information: \textcolor{blue}{\href{https://www2.gov.bc.ca/gov/content/environment/air-land-water/water/drought-flooding-dikes-dams/river-forecast-centre}{Detailed explanation of chart}} | \textcolor{blue}{\href{https://www2.gov.bc.ca/gov/content/environment/air-land-water/water/drought-flooding-dikes-dams/river-forecast-centre}{Technical reference for model}} | \textcolor{blue}{\href{https://www2.gov.bc.ca/gov/content/environment/air-land-water/water/drought-flooding-dikes-dams/river-forecast-centre}{Forecast Map}}\\
+
+Well Information: \textcolor{blue}{\href{`r paste0("https://aqrt.nrs.gov.bc.ca/Data/Location/Summary/Location/",params$well_id,"/Interval/Latest")`}{BC Real-time Data}} | \textcolor{blue}{\href{`r paste0("https://apps.nrs.gov.bc.ca/gwells/well/", params$well_tag_number)`}{Well Summary}} | \textcolor{blue}{\href{`r paste0("https://apps.nrs.gov.bc.ca/gwells/aquifers/",params$aquifer_num)`}{Aquifer Summary}}
+
+
+Issued by \textcolor{blue}{\href{https://www2.gov.bc.ca/gov/content/environment/air-land-water/water/drought-flooding-dikes-dams/river-forecast-centre}{BC River Forecast Centre}} | Updated: `r format(Sys.time(), "%Y-%m-%d %H:%M")`
+
+\end{center}
+

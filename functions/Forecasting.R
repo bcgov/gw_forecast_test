@@ -73,7 +73,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                # filter data by well
                               #y=Well_list[1]
 
-  
+                                              
    last_measurements_well <- last_measurements %>%
      filter(Well == y) %>%
      pull(last_measurements)
@@ -1770,6 +1770,14 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
              rows = 3,
              columns = all_of(names(flag_tbl_below)[unlist(flag_tbl_below)])
            )
+         )  %>%
+         cols_width(
+           starts_with("Groundwater") ~ pct(30),
+           everything() ~ pct(15)
+         )  %>%
+         cols_align(
+           align = "center",
+           columns = -1  # this means: all columns *except* the first
          ) # %>% cols_label(
            # !!colnames(table_for_gt)[1] := html(colnames(table_for_gt)[1]),
            # !!colnames(table_for_gt)[2] := html(colnames(table_for_gt)[2]),
@@ -1999,6 +2007,10 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        rmarkdown::render("docs/gw_forecast_report.Rmd",
                          params = list("well_id" = y[[1]],
+                                       "well_location" = location,
+                                       "aquifer_num" = paste0("Aquifer Number:", pgown_well_info_Well_info$aquifer_id),
+                                       "aquifer_type" = paste("Aquifer Type = NA"),#,  pgown_well_info_Well_info$subtype
+                                       "model_type" = paste0(recharge_type_2, "-Dominated Model"),
                                        "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
                                                           legend_plot, rel_widths = c(0.8,0.2)),
                                        "table" = table_gt),
