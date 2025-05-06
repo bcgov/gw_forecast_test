@@ -38,7 +38,7 @@ library(gt)
 \vspace{-1.5em}
 \end{center}
 
-```{r plot, fig.height=6, fig.width=10}
+```{r plot, fig.height=4, fig.width=10}
 params$plot
 ```
 
@@ -100,6 +100,10 @@ params$table %>%
 #       # stripe_color = "gray!15"
 #     )
 ```
+
+
+
+**Description/Explanation**: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis enim non dolor sagittis efficitur. Quisque a quam eros. Suspendisse interdum arcu finibus, ullamcorper risus a, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec orci tristique, tincidunt nisl semper, scelerisque mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ornare urna eu cursus pulvinar. Morbi viverra eros tincidunt, rhoncus nisi nec, tincidunt libero. Maecenas at est et ipsum ultrices hendrerit. Aenean quis ullamcorper lorem. 
 
 **Disclaimer**: Groundwater level forecasts use statistical models and third-party data. These models have two types of errors: systematic (model limitations) and random (input data). Forecasts may differ from actual observations, and water levels could exceed forecast bounds. Users must accept responsibility for their use and interpretation.
 

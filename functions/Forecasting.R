@@ -2011,7 +2011,8 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                        "aquifer_num" = paste0("Aquifer Number:", pgown_well_info_Well_info$aquifer_id),
                                        "aquifer_type" = paste("Aquifer Type = NA"),#,  pgown_well_info_Well_info$subtype
                                        "model_type" = paste0(recharge_type_2, "-Dominated Model"),
-                                       "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
+                                       # "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
+                                       "plot" = plot_grid(plot_grid(main_plot, ncol = 1),
                                                           legend_plot, rel_widths = c(0.8,0.2)),
                                        "table" = table_gt),
                          output_dir = output_path,
