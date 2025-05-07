@@ -30,10 +30,10 @@ output_path <- paste0(figure_location,"Model_results/",as.character(Sys.Date()))
 # Create new folder
 dir.create(output_path)
 
-
-#for(i in Regional_group_list){
+Regional_group_list <- Regional_group_list[1]
+for(i in Regional_group_list){
   
-   i <- Regional_group_list[1] 
+   # i <- Regional_group_list[1] 
   
   pgown_well_info <- pgown_well_info_all %>%
     filter(Regional_group == i) 
@@ -81,4 +81,4 @@ dir.create(output_path)
   
   write_csv(Model_Forecasting_data, paste0(output_path,"/predictive_forecast_results_",i,".csv"))
   
-#}
+}
