@@ -31,14 +31,14 @@ output_path <- paste0(figure_location,"Model_results/",as.character(Sys.Date()))
 dir.create(output_path)
 
 
-for(i in Regional_group_list){
+#for(i in Regional_group_list){
   
-  # i <- Regional_group_list[1] 
+   i <- Regional_group_list[1] 
   
   pgown_well_info <- pgown_well_info_all %>%
     filter(Regional_group == i) 
   
-  # pgown_well_info <- pgown_well_info[1,]
+   pgown_well_info <- pgown_well_info[1,]
   
   
   ## Downloads -------------------------------------------------------------------
@@ -81,4 +81,4 @@ for(i in Regional_group_list){
   
   write_csv(Model_Forecasting_data, paste0(output_path,"/predictive_forecast_results_",i,".csv"))
   
-}
+#}

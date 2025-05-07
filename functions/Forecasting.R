@@ -1539,12 +1539,17 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
       Probabilities_normal <- calculate_likelihood(Probabilities, predicted_value <= per75th & predicted_value >= per25th)
       Probabilities_below_normal <- calculate_likelihood(Probabilities, predicted_value <= per25th)
 
+      
+      prob_cats <- c("Above Normal",
+                     "Normal",
+                     "Below Normal")
       # Combine the data frames
       Probabilities_combined <- bind_rows(
-        mutate(Probabilities_above_normal, category = "1) Above Normal"),
-        mutate(Probabilities_normal, category = "2) Normal"),
-        mutate(Probabilities_below_normal, category = "3) Below Normal")
-      )
+        mutate(Probabilities_above_normal, category = prob_cats[1]),
+        mutate(Probabilities_normal, category = prob_cats[2]),
+        mutate(Probabilities_below_normal, category = prob_cats[3])
+      ) %>% 
+        mutate(category = factor(category, levels = prob_cats))
       
       
       # Calculate ensemble likelihoods
@@ -1720,11 +1725,17 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
          mutate(likelihood = case_when(likelihood < 5 ~ "<5",
                                        likelihood > 95 ~ ">95",
                                        TRUE ~ as.character(round(likelihood, 0)))) %>%
-         spread(table_name,likelihood) 
+         spread(table_name,likelihood) %>% 
+         mutate(Percentiles = case_when(`Groundwater Level Conditions` == prob_cats[1] ~ "Above 75th",
+                                        `Groundwater Level Conditions` == prob_cats[2] ~ "25th to 75th",
+                                        `Groundwater Level Conditions` == prob_cats[3] ~ "Below 25th"),
+                Latest = c("<5",">95","<5")) %>% 
+         #   select("Groundwater Level" = `Groundwater Level Conditions`, Conditions = Percentiles, everything())
+         select(`Groundwater Level Conditions`, "Percentile Range" = Percentiles, Latest, everything())
        
        flag_tbl_above <- table_for_gt %>%
          slice(1) %>% # only first row
-         select(-1) %>%
+         select(-(1:2)) %>%
          mutate(across(everything(), ~ {
            num <- suppressWarnings(as.numeric(gsub("[^0-9]", "", .x)))
            .x == ">95" | num > 50
@@ -1732,7 +1743,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        flag_tbl_normal <- table_for_gt %>%
          slice(2) %>% # only first row
-         select(-1) %>%
+         select(-(1:2)) %>%
          mutate(across(everything(), ~ {
            num <- suppressWarnings(as.numeric(gsub("[^0-9]", "", .x)))
            .x == ">95" | num > 50
@@ -1740,7 +1751,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        flag_tbl_below <- table_for_gt %>%
          slice(3) %>% # only first row
-         select(-1) %>%
+         select(-(1:2)) %>%
          mutate(across(everything(), ~ {
            num <- suppressWarnings(as.numeric(gsub("[^0-9]", "", .x)))
            .x == ">95" | num > 50
@@ -1772,13 +1783,31 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
            )
          )  %>%
          cols_width(
-           starts_with("Groundwater") ~ pct(30),
-           everything() ~ pct(15)
+           starts_with("Groundwater") ~ pct(20),
+           starts_with("Percentile") ~ pct(17),
+           everything() ~ pct(12)
          )  %>%
          cols_align(
            align = "center",
-           columns = -1  # this means: all columns *except* the first
-         ) # %>% cols_label(
+           columns = -(1:2)  # this means: all columns *except* the first
+         )  %>%
+         cols_align(
+           align = "left",
+           columns = 1:2  # or use tidyselect helpers like everything(), starts_with(), etc.
+         )%>%
+         tab_style(
+           style = cell_text(weight = "bold"),
+           locations = list(cells_column_labels(everything()))
+         ) %>%
+         tab_style(
+           style = list(cell_fill(color = "gray96"),
+                        cell_text(color = "black")),
+           locations = cells_column_labels(everything())
+         )  %>%
+         tab_style(
+           style = cell_fill(color = "gray96"),
+           locations = cells_body(columns = 1:2)
+         )# %>% cols_label(
            # !!colnames(table_for_gt)[1] := html(colnames(table_for_gt)[1]),
            # !!colnames(table_for_gt)[2] := html(colnames(table_for_gt)[2]),
            # !!colnames(table_for_gt)[3] := html(colnames(table_for_gt)[3]),
