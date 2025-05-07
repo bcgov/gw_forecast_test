@@ -39,12 +39,7 @@ jobs:
            libsqlite3-dev \
            libudunits2-dev \
            
-      - name: Copy fonts into TEXMF tree
-        run: |
-          mkdir -p ~/texmf/fonts/opentype/custom
-          cp -v ./fonts/*.otf ~/texmf/fonts/opentype/custom/
-          mktexlsr ~/texmf
-         
+
       - name: Install packages
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
