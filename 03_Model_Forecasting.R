@@ -32,7 +32,7 @@ dir.create(output_path)
 
 # don't download in parallel? Download then forecast.
 
-Regional_group_list <- Regional_group_list[1:2]
+Regional_group_list <- Regional_group_list[1:4]
 for(i in Regional_group_list){
   
    # i <- Regional_group_list[1] 
