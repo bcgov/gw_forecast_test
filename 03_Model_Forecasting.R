@@ -38,7 +38,7 @@ for(i in Regional_group_list){
   pgown_well_info <- pgown_well_info_all %>%
     filter(Regional_group == i) 
   
-   pgown_well_info <- pgown_well_info[1,]
+   # pgown_well_info <- pgown_well_info[1,]
   
   
   ## Downloads -------------------------------------------------------------------
