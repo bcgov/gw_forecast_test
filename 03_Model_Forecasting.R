@@ -30,7 +30,9 @@ output_path <- paste0(figure_location,"Model_results/",as.character(Sys.Date()))
 # Create new folder
 dir.create(output_path)
 
-Regional_group_list <- Regional_group_list[1]
+# don't download in parallel? Download then forecast.
+
+Regional_group_list <- Regional_group_list[1:2]
 for(i in Regional_group_list){
   
    # i <- Regional_group_list[1] 
