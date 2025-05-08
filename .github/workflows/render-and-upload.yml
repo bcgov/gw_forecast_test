@@ -13,6 +13,7 @@ jobs:
     environment: objectstore #name of the Github environment where the secrets are stored 
     env:
       R_LIBS_USER: ~/.local/share/R/library
+      TZ: America/Vancouver
       
     steps:
       - name: Checkout code
