@@ -30,20 +30,19 @@ output_path <- paste0(figure_location,"Model_results/",as.character(Sys.Date()))
 # Create new folder
 dir.create(output_path)
 
-# don't download in parallel? Download then forecast.
 
 # Regional_group_list <- Regional_group_list[1:4]
 # for(i in Regional_group_list){
-  for(i in unique(pgown_well_info_all$Region)){
-    
-   # i <- Regional_group_list[1] 
+for(i in unique(pgown_well_info_all$Region)){
+  
+  # i <- Regional_group_list[1] 
   
   # pgown_well_info <- pgown_well_info_all %>%
   #   filter(Regional_group == i) 
   pgown_well_info <- pgown_well_info_all %>%
     filter(Region == i) 
   
-   # pgown_well_info <- pgown_well_info[1,]
+  # pgown_well_info <- pgown_well_info[1,]
   
   
   ## Downloads -------------------------------------------------------------------
