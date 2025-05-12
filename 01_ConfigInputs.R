@@ -63,7 +63,8 @@ pkgs <- c(#'tidyverse',
   'rmarkdown',
   'tinytex',
   'gt',
-  'leaflet'
+  'leaflet',
+  'htmlwidgets'
   #'remotes',
 )
 

@@ -291,7 +291,7 @@ gw_map <- leaflet::leaflet(options = leaflet::leafletOptions(attributionControl 
   leaflet::hideGroup(group = c("Latest Conditions",
                                "Below Normal - 30 days", "Below Normal - 60 days","Below Normal - 90 days")) # "Below Normal",
 #leaflet::hideGroup(group = c("Above Normal", "Normal","Combined Likelihood")) # "Below Normal",
-gw_map
+# gw_map
 
 
 
@@ -339,7 +339,8 @@ gw_map <- gw_map  %>%
 
 #gw_map
 
-htmlwidgets::saveWidget(gw_map, paste0(output_path, "/Groundwater_Drought_Forecasting_Map.html"),
+htmlwidgets::saveWidget(widget = gw_map, 
+                        file = paste0(output_path, "/Groundwater_Drought_Forecasting_Map.html"),
                         selfcontained = TRUE,
                         title = "B.C. Groundwater Drought Forecasting")
 
