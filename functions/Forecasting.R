@@ -1903,22 +1903,7 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        
-       # # Temporary directory for rendering
-       # tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
-       # dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
-       # 
-       # int_dir <- file.path(tempdir(), paste0("int_", y))
-       # dir.create(int_dir, recursive = TRUE, showWarnings = FALSE)
-       # 
-       # temp_font_dir <- file.path(tmp_dir, "fonts")
-       # dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
-       # 
-       # # Copy files into temp dir
-       # rmd_copy <- file.copy("docs/gw_forecast_report.Rmd", tmp_dir)
-       # tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
-       # png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
-       # fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
-       #                         to = temp_font_dir, recursive = FALSE)
+
        
        
        
@@ -2014,8 +1999,27 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        
        
        
+       # Temporary directory for rendering
+       tmp_dir <- file.path(tempdir(), paste0("tmp_", y))
+       dir.create(tmp_dir, recursive = TRUE, showWarnings = FALSE)
+
+       int_dir <- file.path(tempdir(), paste0("int_", y))
+       dir.create(int_dir, recursive = TRUE, showWarnings = FALSE)
+
+       temp_font_dir <- file.path(tmp_dir, "fonts")
+       dir.create(temp_font_dir, recursive = TRUE, showWarnings = FALSE)
+
+       # Copy files into temp dir
+       rmd_copy <- file.copy("docs/gw_forecast_report.Rmd", tmp_dir)
+       tex_copy <- file.copy("docs/gw_forecast_report.tex", tmp_dir)
+       png_copy <- file.copy("docs/BCID_V_RGB_rev.png", tmp_dir)
+       png2_copy <- file.copy("docs/range_legend.png", tmp_dir)
+       fonts_copy <- file.copy(from = list.files("docs/fonts/", full.names = TRUE),
+                               to = temp_font_dir, recursive = FALSE)
+       
+       
        # Path to copied Rmd
-       # tmp_rmd <- file.path(tmp_dir, "gw_forecast_report.Rmd")
+       tmp_rmd <- file.path(tmp_dir, "gw_forecast_report.Rmd")
        
        
        # # Logging (useful for debugging parallel jobs)
@@ -2023,18 +2027,12 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
        # message("Temporary directory: ", tmp_dir)
        # message("Intermediate directory: ", int_dir)
        
-       # rmarkdown::render(input = tmp_rmd,
-       #                   output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
-       #                   output_dir = output_path,
-       #                   knit_root_dir = tmp_dir,
-       #                   intermediates_dir = int_dir,  # Isolate temp files
-       #                   envir = new.env(),
-       #                   params = list("well_id" = y[[1]],
-       #                                 "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
-       #                                                    legend_plot, rel_widths = c(0.8,0.2)),
-       #                                 "table" = table_gt))
-       
-       rmarkdown::render("docs/gw_forecast_report.Rmd",
+       rmarkdown::render(input = tmp_rmd,
+                         output_file = paste0("Well_", y, "_Model_Predictions.pdf"),
+                         output_dir = output_path,
+                         knit_root_dir = tmp_dir,
+                         intermediates_dir = int_dir,  # Isolate temp files
+                         envir = new.env(),
                          params = list("well_id" = y[[1]],
                                        "well_location" = location,
                                        "aquifer_num" = paste0("Aquifer Number:", pgown_well_info_Well_info$aquifer_id),
@@ -2043,9 +2041,20 @@ forecast_model <- function(Time_series_data, forecast_days, num_cores, figure_lo
                                        # "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
                                        "plot" = plot_grid(plot_grid(main_plot, ncol = 1),
                                                           legend_plot, rel_widths = c(0.8,0.2)),
-                                       "table" = table_gt),
-                         output_dir = output_path,
-                         output_file = paste0("Well_", y, "_Model_Predictions.pdf"))
+                                       "table" = table_gt))
+       
+       # rmarkdown::render("docs/gw_forecast_report.Rmd",
+       #                   params = list("well_id" = y[[1]],
+       #                                 "well_location" = location,
+       #                                 "aquifer_num" = paste0("Aquifer Number:", pgown_well_info_Well_info$aquifer_id),
+       #                                 "aquifer_type" = paste("Aquifer Type = NA"),#,  pgown_well_info_Well_info$subtype
+       #                                 "model_type" = paste0(recharge_type_2, "-Dominated Model"),
+       #                                 # "plot" = plot_grid(plot_grid(main_plot, temp_graph2, ncol = 1, rel_heights = c(0.6,0.4)),
+       #                                 "plot" = plot_grid(plot_grid(main_plot, ncol = 1),
+       #                                                    legend_plot, rel_widths = c(0.8,0.2)),
+       #                                 "table" = table_gt),
+       #                   output_dir = output_path,
+       #                   output_file = paste0("Well_", y, "_Model_Predictions.pdf"))
        
        ######
        

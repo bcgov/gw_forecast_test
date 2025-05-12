@@ -4,6 +4,7 @@ output:
     includes:
       in_header: gw_forecast_report.tex
     latex_engine: xelatex
+    pandoc_args: ["--variable", "geometry:landscape"]
 params:
   well_id: NULL
   well_location: NULL
@@ -101,7 +102,12 @@ params$table %>%
 #     )
 ```
 
-
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+  \vspace{-10pt}
+  \includegraphics[width=0.38\textwidth]{range_legend.png}
+  \vspace{-10pt}
+\end{wrapfigure}
 
 **Description/Explanation**: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc convallis enim non dolor sagittis efficitur. Quisque a quam eros. Suspendisse interdum arcu finibus, ullamcorper risus a, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec orci tristique, tincidunt nisl semper, scelerisque mauris. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ornare urna eu cursus pulvinar. Morbi viverra eros tincidunt, rhoncus nisi nec, tincidunt libero. Maecenas at est et ipsum ultrices hendrerit. Aenean quis ullamcorper lorem. 
 

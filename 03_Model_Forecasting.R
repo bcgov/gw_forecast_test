@@ -39,6 +39,9 @@ for(i in unique(pgown_well_info_all$Region)){
   
   # pgown_well_info <- pgown_well_info_all %>%
   #   filter(Regional_group == i) 
+  
+  
+  # i <- unique(pgown_well_info_all$Region)[1] 
   pgown_well_info <- pgown_well_info_all %>%
     filter(Region == i) 
   
