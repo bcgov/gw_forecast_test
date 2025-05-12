@@ -57,6 +57,9 @@ jobs:
       - name: Run forecasting R script
         run: Rscript -e 'source("03_Model_Forecasting.R")'
         
+      - name: Create map
+        run: Rscript -e 'source("07_mapping.R")'
+        
       - name: Upload to Object Storage
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

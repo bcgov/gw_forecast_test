@@ -33,8 +33,9 @@ dir.create(output_path)
 
 # Regional_group_list <- Regional_group_list[1:4]
 # for(i in Regional_group_list){
-for(i in unique(pgown_well_info_all$Region)){
-  
+# for(i in unique(pgown_well_info_all$Region)[3:7]){
+for(i in unique(pgown_well_info_all$Region)[1]){
+    
   # i <- Regional_group_list[1] 
   
   # pgown_well_info <- pgown_well_info_all %>%
