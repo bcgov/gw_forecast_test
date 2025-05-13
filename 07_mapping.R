@@ -345,5 +345,5 @@ htmlwidgets::saveWidget(widget = gw_map,
                         title = "B.C. Groundwater Drought Forecasting")
 
 # remove building files
-unlink(paste0(output_path, "/Groundwater_Drought_Forecasting_Map_files"))
+unlink(paste0(output_path, "/Groundwater_Drought_Forecasting_Map_files"), recursive = TRUE)
 
