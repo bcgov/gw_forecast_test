@@ -3,7 +3,7 @@
 
 source("01_ConfigInputs.R")
 
-#create a new directory to save the figures too based on the date. 
+#create a new directory to save the figures too based on the date.  
 
 
 library(aws.s3)
